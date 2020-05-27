@@ -335,11 +335,17 @@ extension ViewController: CBPeripheralDelegate {
             
             if (characteristic.value != nil)
             {
-                            let readValue = characteristic.value!.hexEncodedString()
+                let readValue = characteristic.value!
+//                let readValue = characteristic.value![0]
                 
-                            //assign the converted text to a display label
-                            readDataFromPeripheral = readValue
-                            print("DATA READ = \(readValue)")
+                //assign the converted text to a display label
+//                readDataFromPeripheral = readValue
+                
+                let converted = String.init(data: readValue, encoding: .utf8)
+                
+                readDataFromPeripheral = converted!
+                
+                print("DATA READ = \(converted ?? "no value")")
             }
 
         case secondChar:
