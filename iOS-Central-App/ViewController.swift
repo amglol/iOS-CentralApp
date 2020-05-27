@@ -28,7 +28,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
     @IBOutlet weak var valueSendBtn: UIButton!
     
     //connection id
-//    let connectionID = "1010"
     let connectionID = "1010"
     //service id
     let serviceID = "2233"
@@ -45,7 +44,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
     var writeData: String = ""
     var isSendMsgPressed: Bool = false
     
-    
     //store discovered peripherals
     var storedPeripherals = [String: UUID]()
     var RSSIs = [NSNumber]()
@@ -61,7 +59,9 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
         //assign the central manager
         centralManager = CBCentralManager(delegate: self, queue: nil)
         
-        print("WRITE DATA AT LOAD = \(writeData)")
+        //gesture to hide keyboard when tapping anywhere on the screen
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
     }
     
     //Button event handler
@@ -92,13 +92,13 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
         let serviceCBUUID = CBUUID(string: self.connectionID)
         
         //scan for a specific peripheral
-        centralManager.scanForPeripherals(withServices: [serviceCBUUID], options: nil)
+        centralManager.scanForPeripherals(withServices: nil, options: nil)
     }
     
     //connect to the selected peripheral
     func ConnectToDiscoveredPeripheral() {
         //connect to the discovered peripheral
-        centralManager.connect(iPadPeripheral)
+        centralManager.connect(iPadPeripheral, options: nil)
     }
     
     //system finds out which bluetooth state the central device is in
@@ -130,7 +130,6 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
         print("DID DISCOVER PERIPHERALS")
         
         print(peripheral)
-        print(advertisementData)
         
         //display the name of the peripheral
         DispatchQueue.main.async {
@@ -169,7 +168,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
 //        self.RSSIs.append(RSSI)
         
         //stop the scan
-        centralManager.stopScan()
+//        centralManager.stopScan()
 
         //store the peripheral once it is found
         iPadPeripheral = peripheral
@@ -178,7 +177,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
         iPadPeripheral.delegate = self
 
         //connect to the ipad
-        ConnectToDiscoveredPeripheral()
+//        ConnectToDiscoveredPeripheral()
         
     }
     
@@ -199,13 +198,13 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("DISCONNECTED FROM PERIPHERAL\n")
         
-        //start the scan again
-        ScanForPeripherals()
+        //reconnect back to peripheral
+        ConnectToDiscoveredPeripheral()
     }
     
     //table view # of items
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("STORED PERIPHERALS COUNT = \(storedPeripherals.count)")
+        //print("STORED PERIPHERALS COUNT = \(storedPeripherals.count)")
         return storedPeripherals.count
     }
     
@@ -240,7 +239,7 @@ extension ViewController: CBPeripheralDelegate {
         //convert the string ID's to CBUUID's
         let customServiceCBUUID = CBUUID(string: self.serviceID)
         
-        print(services)
+        print("\n \(services) \n")
         
         //we only care about services that match our service ID
         for service in services {
