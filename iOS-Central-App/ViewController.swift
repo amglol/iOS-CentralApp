@@ -9,32 +9,44 @@
 import UIKit
 import CoreBluetooth
 
-class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
-    @IBOutlet weak var peripheralReadValueBtn: UIButton!
-    @IBOutlet weak var peripheralReadValueLabel: UILabel!
-    @IBOutlet weak var myTextView: UILabel!
-    @IBOutlet weak var myTextField: UITextField!
     @IBOutlet weak var peripheralName: UILabel!
     @IBOutlet weak var peripheralUUID: UILabel!
     @IBOutlet weak var peripheralConnectionUUID: UILabel!
     @IBOutlet weak var peripheralCharUUID: UILabel!
+    
+    //properties labels
     @IBOutlet weak var readCheck: UIImageView!
     @IBOutlet weak var writeCheck: UIImageView!
     @IBOutlet weak var notifyCheck: UIImageView!
     @IBOutlet weak var indicateCheck: UIImageView!
     @IBOutlet weak var writeWithoutRspCheck: UIImageView!
+    
     @IBOutlet weak var myTableView: UITableView!
-    @IBOutlet weak var valueSendBtn: UIButton!
+    
+    //write to peripheral input field
+    @IBOutlet weak var writeValueInputField: UITextField!
+    
+    //read from peripheral display label
+    @IBOutlet weak var readValueDisplayLabel: UILabel!
+    
+    //first characteristic display label
+    @IBOutlet weak var firstCharLabel: UILabel!
     
     //connection id
-    let connectionID = "1010"
+//    let connectionID = "1010"
+    let connectionID = "DF234F41-6871-44E8-A843-0C9845BE1542"
     //service id
-    let serviceID = "2233"
+//    let serviceID = "2233"
+    let serviceID = "DF234F41-6871-44E8-A843-0C9845BE1542"
     //characteristic id
-    let characteristicID = "2169"
+//    let characteristicID = "2169"
+    let characteristicID = "9775BF3B-286E-4E41-8FAD-66C704D5949D"
     //second characteristic id
-    let characteristicID2 = "1212"
+//    let characteristicID2 = "1212"
+    let characteristicID2 = "7CD33D29-21FD-43C3-B8F4-040A986284D9"
+    
     
     var centralManager: CBCentralManager!
     var iPadPeripheral: CBPeripheral!
@@ -47,14 +59,16 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
     //store discovered peripherals
     var storedPeripherals = [String: UUID]()
     var RSSIs = [NSNumber]()
+    var storedCharacteristics = [CBCharacteristic]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view
         
         //assign the table view to the data from the view controller
-        self.myTableView.delegate = self
-        self.myTableView.dataSource = self
+//        self.myTableView.delegate = self
+//        self.myTableView.dataSource = self
+        writeValueInputField.delegate = self
 
         //assign the central manager
         centralManager = CBCentralManager(delegate: self, queue: nil)
@@ -64,26 +78,18 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
         view.addGestureRecognizer(tap)
     }
     
-    //Button event handler
-    //send user input to peripheral device
-    @IBAction func valueChanged(_ sender: Any) {
-        print("value is changing")
-        
-//        iPadPeripheral.writeValue(data!, for: characteristic)
-    }
-    
-    //Button event handler
-    //send user input to peripheral device
-    @IBAction func sendValueBtn(_ sender: Any) {
+    //write data to peripheral button
+    @IBAction func writeValueBtn(_ sender: Any) {
+        print("write btn pressed")
         isSendMsgPressed = true
-        writeData = myTextField.text!
+        writeData = writeValueInputField.text!
+        print(writeValueInputField.text!)
     }
     
-    //Button event handler
-    //read peripheral data
-    @IBAction func ReadValueFromPeripheral(_ sender: Any) {
-        print("Read Value BTN pressed")
-        peripheralReadValueLabel.text = String(readDataFromPeripheral)
+    //read data from peripheral button
+    @IBAction func readValueBtn(_ sender: Any) {
+        print("read btn pressed")
+        readValueDisplayLabel.text = String(readDataFromPeripheral)
     }
     
     //scan for available peripherals
@@ -92,7 +98,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
         let serviceCBUUID = CBUUID(string: self.connectionID)
         
         //scan for a specific peripheral
-        centralManager.scanForPeripherals(withServices: nil, options: nil)
+        centralManager.scanForPeripherals(withServices: [serviceCBUUID], options: nil)
     }
     
     //connect to the selected peripheral
@@ -136,39 +142,13 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
             self.peripheralName.text = peripheral.name
         }
         
-//        print(peripheral)
-//        
-//        if ((peripheral.name) != nil)
-//        {
-//            print("in the IF statement")
-//            let peripheralNameExists = storedPeripherals[peripheral.name!] != nil
-//            if (!peripheralNameExists)
-//            {
-//                self.storedPeripherals[peripheral.name!] = peripheral.identifier
-//            }
-//        }
-//        else {
-//            print("in the ELSE block")
-//            let name = "null" + String(count)
-//            let peripheralIdentifierExists = storedPeripherals.values.contains(peripheral.identifier)
-//            
-//            if(!peripheralIdentifierExists) {
-//                print("identifier was not found- ADD NEW ONE")
-//                self.storedPeripherals[name] = peripheral.identifier
-//            }
-//            count += 1
-//        }
-        
         //TABLE VIEW DATA
 //        DispatchQueue.main.async {
 //            self.myTableView.reloadData()
 //        }
         
-        //add the RSSI value
-//        self.RSSIs.append(RSSI)
-        
         //stop the scan
-//        centralManager.stopScan()
+        centralManager.stopScan()
 
         //store the peripheral once it is found
         iPadPeripheral = peripheral
@@ -177,19 +157,17 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
         iPadPeripheral.delegate = self
 
         //connect to the ipad
-//        ConnectToDiscoveredPeripheral()
-        
+        ConnectToDiscoveredPeripheral()
     }
     
     //central device connected to peripheral
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        print("Connected to iPad\n")
+        print("Connected to \(peripheral.name!)\n")
         
         //display the connection id text on screen
         DispatchQueue.main.async {
             self.peripheralConnectionUUID.text = self.connectionID
         }
-        
         //proceed to find the peripherals services
         iPadPeripheral.discoverServices(nil)
     }
@@ -197,6 +175,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
     //loss of connection between central and peripheral
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("DISCONNECTED FROM PERIPHERAL\n")
+        print("Disconnected ERROR: \(error ?? "error could not be printed" as! Error)")
         
         //reconnect back to peripheral
         ConnectToDiscoveredPeripheral()
@@ -222,15 +201,11 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
         let keysArray = Array(storedPeripherals.keys)
     
         cell.textLabel?.text = keysArray[indexPath.row]
-//        for peripheral in storedPeripherals {
-//            cell.textLabel?.text = peripheral.key
-//        }
         return cell
     }
 }
 
 extension ViewController: CBPeripheralDelegate {
-    
     //find out what services the peripheral has
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         print("DID DISCOVER SERVICES METHOD")
@@ -251,7 +226,6 @@ extension ViewController: CBPeripheralDelegate {
             else {
                 print("Did not find characteristic for \(service)")
             }
-            
         }
     }
     
@@ -262,6 +236,9 @@ extension ViewController: CBPeripheralDelegate {
         
         for characteristic in characteristics {
             print(characteristic)
+            
+            //store characteristics
+            storedCharacteristics.append(characteristic)
             
             //update the display text
             DispatchQueue.main.async {
@@ -317,13 +294,9 @@ extension ViewController: CBPeripheralDelegate {
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         print("\n=== DID UPDATE VALUE FOR ===")
-        print("Read Request from peripheral device")
         
-        //print("Characteristic read: \(characteristic)\n error: \(error)")
         let firstChar = CBUUID(string: characteristicID)
         let secondChar = CBUUID(string: characteristicID2)
-        
-        print("FirstChar = \(firstChar) //// SecondChar = \(secondChar)")
         
         switch characteristic.uuid {
         case firstChar:
@@ -332,46 +305,49 @@ extension ViewController: CBPeripheralDelegate {
             
             //convert the data into string format to display on the screen
             
-            if (characteristic.value != nil)
-            {
-                let readValue = characteristic.value!
-//                let readValue = characteristic.value![0]
-                
-                //assign the converted text to a display label
-//                readDataFromPeripheral = readValue
-                
-                let converted = String.init(data: readValue, encoding: .utf8)
-                
-                readDataFromPeripheral = converted!
-                
-                print("DATA READ = \(converted ?? "no value")")
-            }
+//            if (characteristic.value != nil)
+//            {
+//                let converted = String.init(data: characteristic.value!, encoding: .utf8)
+//                firstCharLabel.text = converted
+//                let readValue = characteristic.value!
+//
+//                let converted = String.init(data: readValue, encoding: .utf8)
+//
+//                readDataFromPeripheral = converted!
+//
+//                print("DATA READ = \(converted ?? "no value")")
+//            }
+//            let data: Data = Data(writeData.utf8)
+//            iPadPeripheral.writeValue(data, for: storedCharacteristics[0], type: .withResponse)
 
         case secondChar:
             print("Value for \(secondChar): ", characteristic.value ?? "No Value Found for \(secondChar)")
-            //convert the data into string format to display on the screen
-            let readValue = characteristic.value!.hexEncodedString()
+//            //convert the data into string format to display on the screen
+//            let readValue = characteristic.value!.hexEncodedString()
+//
+//            //assign the converted text to a display label
+//            readDataFromPeripheral = readValue
+//            print("DATA READ = \(readValue)")
+            let readValue = characteristic.value!
             
-            //assign the converted text to a display label
-            readDataFromPeripheral = readValue
-            print("DATA READ = \(readValue)")
+            let converted = String.init(data: readValue, encoding: .utf8)
+            
+            readDataFromPeripheral = converted!
+            
+            print("DATA READ = \(converted ?? "no value")")
         default:
             print("ERR: could not read characteristic")
         }
         
         if (isSendMsgPressed) {
             print("writing to peripheral with \(writeData)")
-            let data: Data = writeData.data(using: .utf8)!
-            iPadPeripheral.writeValue(data, for: characteristic, type: .withResponse)
+//            let data: Data = writeData.data(using: .utf8)!
+            let data: Data = Data(writeData.utf8)
+            print("sending to this characteristic: \(characteristic)")
+//            iPadPeripheral.writeValue(data, for: storedCharacteristics[1], type: .withResponse)
+            iPadPeripheral.writeValue(data, for: storedCharacteristics[0], type: .withResponse)
             isSendMsgPressed = false
         }
-        
-        
-        //write to peripheral
-        
-//        let data = Data(bytes: bytes, count: 2)
-//
-//        peripheral.writeValue(data, for: characteristic, type: .withoutResponse)
     }
     
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
