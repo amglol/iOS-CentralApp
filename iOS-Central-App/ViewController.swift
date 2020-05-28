@@ -9,7 +9,7 @@
 import UIKit
 import CoreBluetooth
 
-class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var peripheralName: UILabel!
     @IBOutlet weak var peripheralUUID: UILabel!
@@ -68,7 +68,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
         //assign the table view to the data from the view controller
 //        self.myTableView.delegate = self
 //        self.myTableView.dataSource = self
-        writeValueInputField.delegate = self
+        //writeValueInputField.delegate = self
 
         //assign the central manager
         centralManager = CBCentralManager(delegate: self, queue: nil)
@@ -339,6 +339,7 @@ extension ViewController: CBPeripheralDelegate {
             print("ERR: could not read characteristic")
         }
         
+        //send a message over  to the peripheral
         if (isSendMsgPressed) {
             print("writing to peripheral with \(writeData)")
 //            let data: Data = writeData.data(using: .utf8)!
