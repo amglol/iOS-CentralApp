@@ -208,6 +208,9 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Connected to \(peripheral.name!)\n")
         
+        //reset the disconnect flag
+        isDisconnectFlag = false
+        
         //display the name of the peripheral
         DispatchQueue.main.async {
             self.peripheralName.text = peripheral.name
@@ -261,6 +264,9 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
         firstCharValLabel.text = ""
         secondCharValLabel.text = ""
         thirdCharValLabel.text = ""
+        
+        //set the disconnect flag to true
+        isDisconnectFlag = true
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
