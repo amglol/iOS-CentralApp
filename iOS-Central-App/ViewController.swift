@@ -38,27 +38,18 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
     @IBOutlet weak var secondCharValLabel: UILabel!
     @IBOutlet weak var thirdCharValLabel: UILabel!
     
-    
-    //connection id
-//    let connectionID = "1010"
-    let connectionID = "0101"
-    
+    //Connection Constants
     //service id
-    let serviceID = "2233"
-//    let serviceID = "0101"
-    let serviceID1 = "6969"
+    let serviceID_A = "1234"
+    let serviceID_B = "1235"
     
-    //characteristic id
-    let characteristicID = "2169"
-    //let characteristicID = "1111" //read write notify
-    //second characteristic id
-    let characteristicID2 = "1212"
-    //let characteristicID2 = "2222" //read
-    //char id
-    let characteristicID3 = "1333"
-//    let characteristicID3 = "3333" //read notify
-    //forth char id
-    let characteristicID4 = "6999"
+    //characteristics for service A
+    let characteristicID1_A = "2346" //notify
+    let characteristicID2_A = "2345" //write - LED Toggle
+    
+    //characteristics for service B
+    let characteristicID1_B = "2347" //write - string
+    let characteristicID2_B = "2348" //read - should read whatever was written by 2347
     
     
     var centralManager: CBCentralManager!
@@ -84,19 +75,26 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view
         
         //assign the table view to the data from the view controller
-        self.myTableView.delegate = self
-        self.myTableView.dataSource = self
+        InitTableData()
         
         //assign the central manager
         centralManager = CBCentralManager(delegate: self, queue: nil)
         
         //gesture to hide keyboard when tapping anywhere on the screen
+        SetupTapGesture()
+    }
+    
+    func SetupTapGesture() {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
+    }
+    
+    func InitTableData() {
+        self.myTableView.delegate = self
+        self.myTableView.dataSource = self
     }
     
     //disconnect from peripheral button event
@@ -332,8 +330,8 @@ extension ViewController: CBPeripheralDelegate {
         guard let services = iPadPeripheral.services else { return }
         
         //convert the string ID's to CBUUID's
-        let customServiceCBUUID = CBUUID(string: self.serviceID)
-        let customServiceCBUUID1 = CBUUID(string: self.serviceID1)
+        let customServiceCBUUID = CBUUID(string: self.serviceID_A)
+        let customServiceCBUUID1 = CBUUID(string: self.serviceID_B)
         
         //we only care about services that match our service ID
         for service in services {
@@ -366,9 +364,10 @@ extension ViewController: CBPeripheralDelegate {
         guard let characteristics = service.characteristics else { return }
         
         print("Found \(characteristics.count) characteristics\n")
-        let char1 = CBUUID(string: characteristicID)
-        let char2 = CBUUID(string: characteristicID2)
-        let char3 = CBUUID(string: characteristicID3)
+        let serviceChar1_A = CBUUID(string: characteristicID1_A)
+        let serviceChar2_A = CBUUID(string: characteristicID2_A)
+        let serviceChar1_B = CBUUID(string: characteristicID1_B)
+        let serviceChar2_B = CBUUID(string: characteristicID2_B)
         
         for characteristic in characteristics {
             print("Characteristic #\(charCounter) - \(characteristic)")
@@ -376,8 +375,8 @@ extension ViewController: CBPeripheralDelegate {
             
             //update the display text
             DispatchQueue.main.async {
-                self.peripheralUUID.text = self.serviceID
-                self.peripheralCharUUID.text = "\(self.characteristicID2) / \(self.characteristicID3)"
+                self.peripheralUUID.text = "\(self.serviceID_A) / \(self.serviceID_B)"
+                self.peripheralCharUUID.text = "\(self.characteristicID1_A) / \(self.characteristicID1_B)"
             }
             
             if characteristic.properties.contains(.read) {
@@ -410,17 +409,20 @@ extension ViewController: CBPeripheralDelegate {
               DispatchQueueUI(myView: self.notifyCheck)
               
               switch characteristic.uuid {
-              case char1:
+              case serviceChar1_A:
                   iPadPeripheral.setNotifyValue(true, for: characteristic)
-                  print("set notify property for \(char1)")
+                  print("set notify property for \(serviceChar1_A)")
                   
-              case char2:
+              case serviceChar2_A:
                   iPadPeripheral.setNotifyValue(true, for: characteristic)
-                  print("set notify property for \(char2)")
+                  print("set notify property for \(serviceChar2_A)")
                 
-              case char3:
-                  iPadPeripheral.setNotifyValue(true, for: characteristic as CBCharacteristic)
-                  print("set notify property for \(char3)")
+              case serviceChar1_B:
+                  iPadPeripheral.setNotifyValue(true, for: characteristic)
+                  print("set notify property for \(serviceChar1_B)")
+              case serviceChar2_B:
+                iPadPeripheral.setNotifyValue(true, for: characteristic)
+                print("set notify property for \(serviceChar2_B)")
               default:
                   break
               }
@@ -454,23 +456,22 @@ extension ViewController: CBPeripheralDelegate {
                 myView.isHidden = true
             }
         }
-        
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         print("\n=== DID UPDATE VALUE FOR ===")
         
-        let firstChar = CBUUID(string: characteristicID)
-        let secondChar = CBUUID(string: characteristicID2)
-        let thirdChar = CBUUID(string: characteristicID3)
-        let forthChar = CBUUID(string: characteristicID4)
+        let serviceChar1_A = CBUUID(string: characteristicID1_A)
+        let serviceChar2_A = CBUUID(string: characteristicID2_A)
+        let serviceChar1_B = CBUUID(string: characteristicID1_B)
+        let serviceChar2_B = CBUUID(string: characteristicID2_B)
         
         //print("Characteristic \(characteristic.uuid) value = \(characteristic.value!)")
         
         switch characteristic.uuid {
-        case firstChar:
+        case serviceChar1_A:
             print("FIRST CHAR")
-            print("Value for \(firstChar): ", characteristic.value ?? "No Value Found For \(firstChar)")
+            print("Value for \(serviceChar1_A): ", characteristic.value ?? "No Value Found For \(serviceChar1_A)")
             
             let readValue = characteristic.value ?? "no value".data(using: .utf8)
             print("ReadValue in firstChar before its converted = \(readValue)")
@@ -482,9 +483,9 @@ extension ViewController: CBPeripheralDelegate {
             //readDataFromPeripheral = converted
             self.firstCharValLabel.text = converted
 
-        case secondChar:
+        case serviceChar2_A:
             print("SECOND CHAR")
-            print("Value for \(secondChar): ", characteristic.value ?? "No Value Found For \(secondChar)")
+            print("Value for \(serviceChar2_A): ", characteristic.value ?? "No Value Found For \(serviceChar2_A)")
             
             let readValue = characteristic.value!
             print("ReadValue in secondChar before its converted = \(readValue)")
@@ -496,9 +497,9 @@ extension ViewController: CBPeripheralDelegate {
             readDataFromPeripheral = converted
             
             self.secondCharValLabel.text = converted
-        case thirdChar:
+        case serviceChar1_B:
             print("THIRD CHAR")
-            print("Value for \(thirdChar): ", characteristic.value ?? "No Value Found For \(thirdChar)")
+            print("Value for \(serviceChar1_B): ", characteristic.value ?? "No Value Found For \(serviceChar1_B)")
             
             let readValue = characteristic.value!
             print("ReadValue in thirdChar before its converted = \(readValue)")
@@ -510,9 +511,9 @@ extension ViewController: CBPeripheralDelegate {
             print("DATA READ from thirdChar = \(converted)")
             
             self.thirdCharValLabel.text = converted
-        case forthChar:
+        case serviceChar2_B:
             print("FORTH CHAR")
-            print("Value for \(forthChar): ", characteristic.value ?? "No Value Found For \(forthChar)")
+            print("Value for \(serviceChar2_B): ", characteristic.value ?? "No Value Found For \(serviceChar2_B)")
             
             let readValue = characteristic.value!
             print("ReadValue in forthChar before its converted = \(readValue)")
