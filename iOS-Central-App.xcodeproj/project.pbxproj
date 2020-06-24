@@ -13,6 +13,7 @@
 		DC686DA72472C9790001FF64 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC686DA52472C9790001FF64 /* Main.storyboard */; };
 		DC686DA92472C97B0001FF64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC686DA82472C97B0001FF64 /* Assets.xcassets */; };
 		DC686DAC2472C97B0001FF64 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC686DAA2472C97B0001FF64 /* LaunchScreen.storyboard */; };
+		DCF21C4024A23C4F00A21010 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF21C3F24A23C4F00A21010 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		DC686DA82472C97B0001FF64 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DC686DAB2472C97B0001FF64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DC686DAD2472C97B0001FF64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DCF21C3F24A23C4F00A21010 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				DC686D9F2472C9790001FF64 /* AppDelegate.swift */,
 				DC686DA12472C9790001FF64 /* SceneDelegate.swift */,
 				DC686DA32472C9790001FF64 /* ViewController.swift */,
+				DCF21C3F24A23C4F00A21010 /* MainViewController.swift */,
 				DC686DA52472C9790001FF64 /* Main.storyboard */,
 				DC686DA82472C97B0001FF64 /* Assets.xcassets */,
 				DC686DAA2472C97B0001FF64 /* LaunchScreen.storyboard */,
@@ -141,6 +144,7 @@
 				DC686DA42472C9790001FF64 /* ViewController.swift in Sources */,
 				DC686DA02472C9790001FF64 /* AppDelegate.swift in Sources */,
 				DC686DA22472C9790001FF64 /* SceneDelegate.swift in Sources */,
+				DCF21C4024A23C4F00A21010 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

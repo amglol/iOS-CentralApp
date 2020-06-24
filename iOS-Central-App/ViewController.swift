@@ -38,6 +38,12 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
     @IBOutlet weak var secondCharValLabel: UILabel!
     @IBOutlet weak var thirdCharValLabel: UILabel!
     
+    //write/read text fields
+    @IBOutlet weak var write2345char: UITextField!
+    @IBOutlet weak var write2347char: UITextField!
+    @IBOutlet weak var read2348char: UILabel!
+    
+    
     //Connection Constants
     //service id
     let serviceID_A = "1234"
@@ -84,6 +90,9 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
         
         //gesture to hide keyboard when tapping anywhere on the screen
         SetupTapGesture()
+        
+        let state = UIApplication.shared.applicationState
+        
     }
     
     func SetupTapGesture() {
@@ -105,45 +114,85 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
         CancelConnectionToPeripheral()
     }
     
-    //write data to peripheral button
-    @IBAction func writeValueBtn(_ sender: Any) {
-        print("write btn pressed")
+    @IBAction func writeValToChar2345Action(_ sender: Any) {
+        let characteristicCount = CheckStoredCharacteristicsArray()
         
-        let arrayCount = storedCharacteristics.count
+        if characteristicCount > 0 {
+            PrepareMessageForWrite(data: write2345char.text!, characteristic: storedCharacteristics[0])
+        }
+    }
+    @IBAction func writeValToChar2347Action(_ sender: Any) {
+        let characteristicCount = CheckStoredCharacteristicsArray()
         
-        //verify that there is a write characteristic property
-        if (arrayCount > 0) {
-            isSendMsgPressed = true
-            writeData = writeValueInputField.text!
-            print(writeValueInputField.text!)
-            
-            print("writing to peripheral with \(writeData)")
-            let data: Data = Data(writeData.utf8)
-            let writeCharacteristic = storedCharacteristics[0]
-            
-            //write to the peripheral
-            iPadPeripheral.writeValue(data, for: writeCharacteristic, type: .withResponse)
+        if characteristicCount > 0 {
+            PrepareMessageForWrite(data: write2347char.text!, characteristic: storedCharacteristics[1])
+        }
+    }
+    
+    func CheckStoredCharacteristicsArray() -> Int {
+        let numberOfCharacteristics = storedCharacteristics.count
+        var count = 0
+        
+        if numberOfCharacteristics > 0 {
+            count = numberOfCharacteristics
         }
         else {
-            let msg = "The service you are subscribed to does not have a .write property"
-            //notify the user that there is no write characteristic property for the service
-            let alert = UIAlertController(title: "Warning", message: msg, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Dismiss", style: .default))
-            
-            //present the alert
-            self.present(alert, animated: true, completion: nil)
+            count = 0
         }
+        
+        return count
+    }
+    
+    func PrepareMessageForWrite(data: String, characteristic: CBCharacteristic) {
+        print("Attempting to write to the flowmeter with the value - \(data)")
+        
+        let convertedData: Data = Data(data.utf8)
+     
+        //send the data
+        iPadPeripheral.writeValue(convertedData, for: characteristic, type: .withResponse)
+    }
+    
+    //write data to peripheral button
+    @IBAction func writeValueBtn(_ sender: Any) {
+//        print("write btn pressed")
+//
+//        let arrayCount = storedCharacteristics.count
+//
+//        //verify that there is a write characteristic property
+//        if (arrayCount > 0) {
+//            isSendMsgPressed = true
+//            writeData = writeValueInputField.text!
+//            print(writeValueInputField.text!)
+//
+//            print("writing to peripheral with \(writeData)")
+//            let data: Data = Data(writeData.utf8)
+//            let writeCharacteristic = storedCharacteristics[0]
+//            let writeCharacteristic2 = storedCharacteristics[1]
+//
+//
+//            print("Writing to this characteristic: \(writeCharacteristic)")
+//            print("Writing to this characteristic: \(writeCharacteristic2)")
+//
+//            //write to the peripheral
+//            iPadPeripheral.writeValue(data, for: writeCharacteristic, type: .withResponse)
+//        }
+//        else {
+//            let msg = "The service you are subscribed to does not have a .write property"
+//            //notify the user that there is no write characteristic property for the service
+//            let alert = UIAlertController(title: "Warning", message: msg, preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "Dismiss", style: .default))
+//
+//            //present the alert
+//            self.present(alert, animated: true, completion: nil)
+//        }
     }
     
     //read data from peripheral button
     @IBAction func readValueBtn(_ sender: Any) {
         print("read btn pressed")
+        iPadPeripheral.readValue(for: storedCharacteristics[1])
         readValueDisplayLabel.text = String(readDataFromPeripheral)
         
-        for char in storedCharacteristics {
-            let notifying = char.isNotifying
-            print("Char: \(char) has the notifying property enabled: \(notifying)")
-        }
     }
     
     //scan for available peripherals
@@ -160,6 +209,9 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
         print("CONNECTING TO THIS PERIPHERAL: \(iPadPeripheral!)")
         //connect to the discovered peripheral
         centralManager.connect(iPadPeripheral, options: [CBConnectPeripheralOptionNotifyOnConnectionKey: true])
+        
+//        performSegue(withIdentifier: "connectedView", sender: iPadPeripheral!)
+        
     }
     
     //system finds out which bluetooth state the central device is in
@@ -295,7 +347,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
         //add the connect to device button in the alert
         myAlert.addAction(UIAlertAction(title: "Connect", style: .default) {_ in self.ConnectToDiscoveredPeripheral()})
         myAlert.addAction(UIAlertAction(title: "Dismiss", style: .default))
-        
+
         self.present(myAlert, animated: true, completion: nil)
     }
     
@@ -312,6 +364,13 @@ class ViewController: UIViewController, CBCentralManagerDelegate, UITableViewDel
         cell.detailTextLabel?.textColor = UIColor.black
         return cell
     }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "connectedView" {
+//            let secondVc = segue.destination as? MainViewController
+//            secondVc?.data = iPadPeripheral!
+//        }
+//    }
     
     //display an alert message
     func ShowAlertWhenBLEDisonnects() {
@@ -466,13 +525,11 @@ extension ViewController: CBPeripheralDelegate {
         let serviceChar1_B = CBUUID(string: characteristicID1_B)
         let serviceChar2_B = CBUUID(string: characteristicID2_B)
         
-        //print("Characteristic \(characteristic.uuid) value = \(characteristic.value!)")
-        
         switch characteristic.uuid {
         case serviceChar1_A:
             print("FIRST CHAR")
             print("Value for \(serviceChar1_A): ", characteristic.value ?? "No Value Found For \(serviceChar1_A)")
-            
+
             let readValue = characteristic.value ?? "no value".data(using: .utf8)
             print("ReadValue in firstChar before its converted = \(readValue)")
 
@@ -486,43 +543,41 @@ extension ViewController: CBPeripheralDelegate {
         case serviceChar2_A:
             print("SECOND CHAR")
             print("Value for \(serviceChar2_A): ", characteristic.value ?? "No Value Found For \(serviceChar2_A)")
-            
-            let readValue = characteristic.value!
+
+            let readValue = characteristic.value ?? "no value".data(using: .utf8)
             print("ReadValue in secondChar before its converted = \(readValue)")
 
-            let converted = readValue.hexEncodedString()
-            
+            let converted = readValue!.hexEncodedString()
+
             print("converted value = \(converted)")
 
-            readDataFromPeripheral = converted
-            
             self.secondCharValLabel.text = converted
         case serviceChar1_B:
             print("THIRD CHAR")
             print("Value for \(serviceChar1_B): ", characteristic.value ?? "No Value Found For \(serviceChar1_B)")
-            
-            let readValue = characteristic.value!
+
+            let readValue = characteristic.value ?? "no value".data(using: .utf8)
             print("ReadValue in thirdChar before its converted = \(readValue)")
 
-            let converted = readValue.hexEncodedString()
-
-            readDataFromPeripheral = converted
+            let converted = readValue!.hexEncodedString()
 
             print("DATA READ from thirdChar = \(converted)")
-            
+            readDataFromPeripheral = converted
             self.thirdCharValLabel.text = converted
         case serviceChar2_B:
             print("FORTH CHAR")
             print("Value for \(serviceChar2_B): ", characteristic.value ?? "No Value Found For \(serviceChar2_B)")
+
             
-            let readValue = characteristic.value!
+            let readValue = characteristic.value ?? "no value".data(using: .utf8)
             print("ReadValue in forthChar before its converted = \(readValue)")
-                        
-            let converted = readValue.hexEncodedString()
-                        
+
+            let converted = readValue!.hexEncodedString()
+
+            //pass the value from this read to global variable
             readDataFromPeripheral = converted
-                        
-            print("DATA READ from thirdChar = \(converted)")
+
+            print("DATA READ from forthChar = \(converted)")
         default:
             print("ERR: could not read characteristic")
         }
@@ -530,10 +585,6 @@ extension ViewController: CBPeripheralDelegate {
     
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
         print("DID WRITE VALUE FOR METHOD")
-        let myChar = CBUUID(string: characteristicID2)
-        if (characteristic.uuid == myChar) {
-            peripheral.readValue(for: storedCharacteristics[0])
-        }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didModifyServices invalidatedServices: [CBService]) {
