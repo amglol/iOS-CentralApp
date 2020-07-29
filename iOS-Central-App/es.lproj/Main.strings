@@ -1,0 +1,111 @@
+
+/* Class = "UIButton"; normalTitle = "Read"; ObjectID = "028-X0-e8u"; */
+"028-X0-e8u.normalTitle" = "Leer";
+
+/* Class = "UILabel"; text = "Read"; ObjectID = "1yI-F8-yKO"; */
+"1yI-F8-yKO.text" = "Leer";
+
+/* Class = "UILabel"; text = "Write Value"; ObjectID = "3rL-N1-ROO"; */
+"3rL-N1-ROO.text" = "Write Value";
+
+/* Class = "UILabel"; text = "Read Value"; ObjectID = "8P0-Bf-Blv"; */
+"8P0-Bf-Blv.text" = "Leer Value";
+
+/* Class = "UILabel"; text = "Write"; ObjectID = "9vi-OQ-jKp"; */
+"9vi-OQ-jKp.text" = "Write";
+
+/* Class = "UILabel"; text = "Service CBUUID:"; ObjectID = "Dqe-WH-7tT"; */
+"Dqe-WH-7tT.text" = "Service CBUUID:";
+
+/* Class = "UILabel"; text = "Write 2347"; ObjectID = "GRt-89-oHV"; */
+"GRt-89-oHV.text" = "Write 2347";
+
+/* Class = "UILabel"; text = "Characteristic CBUUID:"; ObjectID = "HXA-X4-Uvw"; */
+"HXA-X4-Uvw.text" = "Characteristic CBUUID:";
+
+/* Class = "UILabel"; text = "Read 2348"; ObjectID = "KAS-wj-KXP"; */
+"KAS-wj-KXP.text" = "Leer 2348";
+
+/* Class = "UIButton"; normalTitle = "DISCONNECT"; ObjectID = "NEB-KN-iao"; */
+"NEB-KN-iao.normalTitle" = "DISCONNECT"; 
+
+/* Class = "UIButton"; normalTitle = "Read"; ObjectID = "OY6-pE-kKo"; */
+"OY6-pE-kKo.normalTitle" = "Leer";
+
+/* Class = "UILabel"; text = "Notify"; ObjectID = "OsK-HX-XrS"; */
+"OsK-HX-XrS.text" = "Notify";
+
+/* Class = "UILabel"; text = "Write"; ObjectID = "Sms-u1-l80"; */
+"Sms-u1-l80.text" = "Write";
+
+/* Class = "UILabel"; text = "2nd Char Val="; ObjectID = "TIJ-pg-Cie"; */
+"TIJ-pg-Cie.text" = "2nd Char Val=";
+
+/* Class = "UILabel"; text = "Name: "; ObjectID = "Ut5-Ih-qI3"; */
+"Ut5-Ih-qI3.text" = "Name: ";
+
+/* Class = "UILabel"; text = "Notify Char#2"; ObjectID = "WFW-1T-e53"; */
+"WFW-1T-e53.text" = "Notify Char#2";
+
+/* Class = "UILabel"; text = "Write 2345"; ObjectID = "WsT-9u-0hD"; */
+"WsT-9u-0hD.text" = "Write 2345";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "X6C-o1-VU4"; */
+"X6C-o1-VU4.text" = "Title";
+
+/* Class = "UILabel"; text = "Characteristic CBUUID:"; ObjectID = "X9w-wB-pFd"; */
+"X9w-wB-pFd.text" = "Characteristic CBUUID:";
+
+/* Class = "UIButton"; normalTitle = "Write"; ObjectID = "Xyw-3P-8nW"; */
+"Xyw-3P-8nW.normalTitle" = "Write";
+
+/* Class = "UILabel"; text = "Properties:"; ObjectID = "aOX-dA-xJZ"; */
+"aOX-dA-xJZ.text" = "Properties:";
+
+/* Class = "UILabel"; text = "Peripheral Information"; ObjectID = "aRe-XK-MuA"; */
+"aRe-XK-MuA.text" = "Peripheral Information";
+
+/* Class = "UILabel"; text = "Read"; ObjectID = "cJG-eQ-N2E"; */
+"cJG-eQ-N2E.text" = "Leer";
+
+/* Class = "UIButton"; normalTitle = "Write"; ObjectID = "elg-Zw-Bbd"; */
+"elg-Zw-Bbd.normalTitle" = "Write";
+
+/* Class = "UILabel"; text = "Properties:"; ObjectID = "fp1-KU-mqG"; */
+"fp1-KU-mqG.text" = "Properties:";
+
+/* Class = "UIButton"; normalTitle = "DISCONNECT"; ObjectID = "gQc-SX-fao"; */
+"gQc-SX-fao.normalTitle" = "DISCONNECT";
+
+/* Class = "UILabel"; text = "Connection CBUUID:"; ObjectID = "hHB-9o-Up5"; */
+"hHB-9o-Up5.text" = "Connection CBUUID:";
+
+/* Class = "UILabel"; text = "Connection CBUUID:"; ObjectID = "hIO-kf-Bfs"; */
+"hIO-kf-Bfs.text" = "Connection CBUUID:";
+
+/* Class = "UILabel"; text = "1st Char Val="; ObjectID = "hf2-H0-fcR"; */
+"hf2-H0-fcR.text" = "1st Char Val=";
+
+/* Class = "UILabel"; text = "Service CBUUID:"; ObjectID = "iWO-sZ-3WE"; */
+"iWO-sZ-3WE.text" = "Service CBUUID:";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "kDQ-Xq-fN5"; */
+"kDQ-Xq-fN5.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "Notify Char#1"; ObjectID = "kTq-Gq-RGU"; */
+"kTq-Gq-RGU.text" = "Notify Char#1";
+
+/* Class = "UILabel"; text = "Notify"; ObjectID = "nej-XN-9mt"; */
+"nej-XN-9mt.text" = "Notify";
+
+/* Class = "UIButton"; normalTitle = "Write"; ObjectID = "p5i-IW-VWZ"; */
+"p5i-IW-VWZ.normalTitle" = "Write";
+
+/* Class = "UILabel"; text = "Name:"; ObjectID = "pJk-ba-Onb"; */
+"pJk-ba-Onb.text" = "Name:";
+
+/* Class = "UILabel"; text = "Peripheral Information"; ObjectID = "uwC-bf-eAS"; */
+"uwC-bf-eAS.text" = "Peripheral Information";
+
+/* Class = "UILabel"; text = "3rd Char Val="; ObjectID = "vKZ-Jq-uww"; */
+"vKZ-Jq-uww.text" = "3rd Char Val=";
