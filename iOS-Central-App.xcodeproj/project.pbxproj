@@ -19,6 +19,7 @@
 		DCA41D7D24AE361500C5F8C6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCA41D7F24AE361500C5F8C6 /* Localizable.strings */; };
 		DCA41D8424AE45C700C5F8C6 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA41D8324AE45C700C5F8C6 /* DataModel.swift */; };
 		DCB77AB924D0650B008C18B4 /* PeripheralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB77AB824D0650B008C18B4 /* PeripheralCell.swift */; };
+<<<<<<< HEAD
 		DCB904B124D089930012D890 /* ServicesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB904B024D089930012D890 /* ServicesHandler.swift */; };
 		DCB904B524D09A850012D890 /* CharacteristicsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB904B424D09A850012D890 /* CharacteristicsHandler.swift */; };
 		DCD8DD6524D873D200D02215 /* commandParser.c in Sources */ = {isa = PBXBuildFile; fileRef = DCD8DD5924D873D200D02215 /* commandParser.c */; };
@@ -26,6 +27,8 @@
 		DCD8DD6724D873D200D02215 /* commandHandlers.c in Sources */ = {isa = PBXBuildFile; fileRef = DCD8DD5B24D873D200D02215 /* commandHandlers.c */; };
 		DCD8DD6824D873D200D02215 /* commandParameters.c in Sources */ = {isa = PBXBuildFile; fileRef = DCD8DD5C24D873D200D02215 /* commandParameters.c */; };
 		DCD8DD6924D873D200D02215 /* commandBuilder.c in Sources */ = {isa = PBXBuildFile; fileRef = DCD8DD5D24D873D200D02215 /* commandBuilder.c */; };
+=======
+>>>>>>> 65240529d9e4c626ae6b0a8ddd12c12966d50a0f
 		DCEAFF9824C0C28900BF3CE9 /* CentralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCEAFF9724C0C28900BF3CE9 /* CentralManager.swift */; };
 		DCEAFF9A24C0C60C00BF3CE9 /* PeripheralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCEAFF9924C0C60C00BF3CE9 /* PeripheralManager.swift */; };
 		EFBE08D4879C5FB76B93B7FF /* Pods_iOS_Central_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D2CD58381944A3EEA845F6 /* Pods_iOS_Central_App.framework */; };
@@ -52,6 +55,7 @@
 		DCA41D8124AE364F00C5F8C6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DCA41D8324AE45C700C5F8C6 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		DCB77AB824D0650B008C18B4 /* PeripheralCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralCell.swift; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		DCB904B024D089930012D890 /* ServicesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesHandler.swift; sourceTree = "<group>"; };
 		DCB904B424D09A850012D890 /* CharacteristicsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacteristicsHandler.swift; sourceTree = "<group>"; };
 		DCD8DD5924D873D200D02215 /* commandParser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = commandParser.c; sourceTree = "<group>"; };
@@ -65,6 +69,8 @@
 		DCD8DD6224D873D200D02215 /* commandParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commandParser.h; sourceTree = "<group>"; };
 		DCD8DD6324D873D200D02215 /* commandFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commandFramework.h; sourceTree = "<group>"; };
 		DCD8DD6424D873D200D02215 /* commandHandlers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commandHandlers.h; sourceTree = "<group>"; };
+=======
+>>>>>>> 65240529d9e4c626ae6b0a8ddd12c12966d50a0f
 		DCEAFF9724C0C28900BF3CE9 /* CentralManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CentralManager.swift; sourceTree = "<group>"; };
 		DCEAFF9924C0C60C00BF3CE9 /* PeripheralManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,10 +125,13 @@
 		DC686D9E2472C9790001FF64 /* iOS-Central-App */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				DCD8DD5724D873D200D02215 /* Command Library */,
 				DCB904B624D09A8E0012D890 /* Handlers */,
 				DCB904B324D0957B0012D890 /* Helper Functions */,
 				DCB904B224D095170012D890 /* Services */,
+=======
+>>>>>>> 65240529d9e4c626ae6b0a8ddd12c12966d50a0f
 				DCA41D8624AE53EB00C5F8C6 /* Controller */,
 				DCA41D8524AE53E100C5F8C6 /* View */,
 				DCA41D8224AE45AF00C5F8C6 /* Model */,
@@ -141,8 +150,15 @@
 			isa = PBXGroup;
 			children = (
 				DCA41D8324AE45C700C5F8C6 /* DataModel.swift */,
+<<<<<<< HEAD
 				DCEAFF9724C0C28900BF3CE9 /* CentralManager.swift */,
 				DCEAFF9924C0C60C00BF3CE9 /* PeripheralManager.swift */,
+=======
+				DC4B28FE24B36EE0000FA348 /* HelperFunctions.swift */,
+				DCEAFF9724C0C28900BF3CE9 /* CentralManager.swift */,
+				DCEAFF9924C0C60C00BF3CE9 /* PeripheralManager.swift */,
+				DC6A429924C73D3100267A18 /* BluetoothService.swift */,
+>>>>>>> 65240529d9e4c626ae6b0a8ddd12c12966d50a0f
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -164,6 +180,7 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		DCB904B224D095170012D890 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +240,8 @@
 			path = includes;
 			sourceTree = "<group>";
 		};
+=======
+>>>>>>> 65240529d9e4c626ae6b0a8ddd12c12966d50a0f
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -340,6 +359,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
 				DCD8DD6724D873D200D02215 /* commandHandlers.c in Sources */,
 				DCA41D8424AE45C700C5F8C6 /* DataModel.swift in Sources */,
 				DCB904B524D09A850012D890 /* CharacteristicsHandler.swift in Sources */,
@@ -347,14 +367,24 @@
 				DCEAFF9A24C0C60C00BF3CE9 /* PeripheralManager.swift in Sources */,
 				DCD8DD6524D873D200D02215 /* commandParser.c in Sources */,
 				DCD8DD6924D873D200D02215 /* commandBuilder.c in Sources */,
+=======
+				DCA41D8424AE45C700C5F8C6 /* DataModel.swift in Sources */,
+				DCB77AB924D0650B008C18B4 /* PeripheralCell.swift in Sources */,
+				DCEAFF9A24C0C60C00BF3CE9 /* PeripheralManager.swift in Sources */,
+>>>>>>> 65240529d9e4c626ae6b0a8ddd12c12966d50a0f
 				DC686DA42472C9790001FF64 /* ViewController.swift in Sources */,
 				DCD8DD6824D873D200D02215 /* commandParameters.c in Sources */,
 				DC686DA02472C9790001FF64 /* AppDelegate.swift in Sources */,
 				DC4B28FD24B35670000FA348 /* TranslationsVC.swift in Sources */,
+<<<<<<< HEAD
 				DCD8DD6624D873D200D02215 /* commandFramework.c in Sources */,
 				DC686DA22472C9790001FF64 /* SceneDelegate.swift in Sources */,
 				DC4B28FF24B36EE0000FA348 /* HelperFunctions.swift in Sources */,
 				DCB904B124D089930012D890 /* ServicesHandler.swift in Sources */,
+=======
+				DC686DA22472C9790001FF64 /* SceneDelegate.swift in Sources */,
+				DC4B28FF24B36EE0000FA348 /* HelperFunctions.swift in Sources */,
+>>>>>>> 65240529d9e4c626ae6b0a8ddd12c12966d50a0f
 				DC6A429A24C73D3100267A18 /* BluetoothService.swift in Sources */,
 				DCEAFF9824C0C28900BF3CE9 /* CentralManager.swift in Sources */,
 			);

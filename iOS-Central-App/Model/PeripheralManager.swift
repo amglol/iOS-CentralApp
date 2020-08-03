@@ -20,7 +20,10 @@ class PeripheralManager {
     
     func AddToStoredPeripherals(peripheral: CBPeripheral) {
         storedPeripherals.append(peripheral)
+<<<<<<< HEAD
         let peripheralAddedToArrayNotification = NotificationCenter.default
         peripheralAddedToArrayNotification.post(name: Notification.Name("StoredPeripheral"), object: nil)
+=======
+>>>>>>> 65240529d9e4c626ae6b0a8ddd12c12966d50a0f
     }
 }

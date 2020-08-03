@@ -157,13 +157,21 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l6w-DG-TTW">
                                                             <rect key="frame" x="0.0" y="0.0" width="374" height="25.333333333333332"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="21"/>
+<<<<<<< HEAD
                                                             <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+=======
+                                                            <nil key="textColor"/>
+>>>>>>> 65240529d9e4c626ae6b0a8ddd12c12966d50a0f
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6V9-zH-q1A">
                                                             <rect key="frame" x="0.0" y="25.333333333333329" width="374" height="20.666666666666671"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
+<<<<<<< HEAD
                                                             <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+=======
+                                                            <nil key="textColor"/>
+>>>>>>> 65240529d9e4c626ae6b0a8ddd12c12966d50a0f
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -177,7 +185,11 @@
                                                 <constraint firstItem="E5n-ry-VWt" firstAttribute="leading" secondItem="l6m-RQ-dPR" secondAttribute="leading" id="jNP-SU-GhT"/>
                                             </constraints>
                                         </tableViewCellContentView>
+<<<<<<< HEAD
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+=======
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+>>>>>>> 65240529d9e4c626ae6b0a8ddd12c12966d50a0f
                                         <connections>
                                             <outlet property="peripheralName" destination="l6w-DG-TTW" id="Z8V-kz-38T"/>
                                             <outlet property="uuidNumber" destination="6V9-zH-q1A" id="vqN-A3-r13"/>

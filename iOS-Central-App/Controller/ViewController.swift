@@ -66,6 +66,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var isSendMsgPressed: Bool = false
     
     var storedPeripherals = [CBPeripheral]()
+
     var testStorePeripheral = [CBPeripheral]()
     
     //store .write characteristics
@@ -90,6 +91,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         
         //assign the table view to the data from the view controller
+
 //        InitTableData()
         
         //assign the central manager
@@ -148,6 +150,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print("Disconnecting from peripheral - btn press")
         
         //call the disconnect function
+
 //        CancelConnectionToPeripheral()
         BluetoothService.bleServiceInstance.DisconnectFromPeripheral()
     }
@@ -164,6 +167,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //button event handler
     @IBAction func writeValToChar2347Action(_ sender: Any) {
+
 //        let characteristicCount = CheckStoredCharacteristicsArray()
 //
 //        //check if there is a characteristic and then write to it
@@ -207,7 +211,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //read data from peripheral button
     @IBAction func readValueBtn(_ sender: Any) {
         print("read btn pressed")
-        
+
         Characteristics.characteristicsInstance.AssignDesiredCharacteristic(enterCharacteristicName: "startProcedure")
         
         let value = Characteristics.characteristicsInstance.GetRequestedCharacteristic()
@@ -379,12 +383,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     //table view # of items
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
         notification.addObserver(self, selector: #selector(PeripheralStoredToArray), name: Notification.Name("StoredPeripheral"), object: nil)
         
         print("xcr - testStorePeripheral count = \(testStorePeripheral.count)")
         
         return testStorePeripheral.count
-    
     }
     
     //a row was pressed
@@ -395,6 +399,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         //assign the selected peripheral to a variable
         peripheralManager = testStorePeripheral[indexPath.row]
+
 
         //add the connect to device button in the alert
         myAlert.addAction(UIAlertAction(title: "Connect", style: .default) {_ in self.ConnectToDiscoveredPeripheral()})
@@ -414,6 +419,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        cell.textLabel?.textColor = UIColor.red
 //        cell.detailTextLabel?.text = "\(uuid)"
 //        cell.detailTextLabel?.textColor = UIColor.black
+
         if let cell = tableView.dequeueReusableCell(withIdentifier: "peripheralList", for: indexPath) as? PeripheralCell {
             print("Stored peripherals count in the table view cell xcr = \(testStorePeripheral.count)")
             let peripheralCell = testStorePeripheral[indexPath.row]
@@ -422,6 +428,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             cell.UpdateCellView(peripheral: peripheralCell)
             //cell.parentTableViewDelegate = self
+
             return cell
         }
         else {
@@ -441,7 +448,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         InitTableData()
         myTableView.reloadData()
     }
-    
 }
 
 //extension ViewController: CBPeripheralDelegate {
